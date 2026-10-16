@@ -1,0 +1,17 @@
+{
+  "name": "VolleyFit",
+  "short_name": "VolleyFit",
+  "description": "Catalogo di esercizi di pallavolo e di preparazione fisica, con animazioni.",
+  "lang": "it",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F2F1EE",
+  "theme_color": "#1546A0",
+  "icons": [
+    {"src": "icone/icona-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icone/icona-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icone/icona-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"},
+    {"src": "icone/icona.svg", "sizes": "any", "type": "image/svg+xml"}
+  ]
+}
