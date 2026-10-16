@@ -248,9 +248,9 @@ function vbCorpo(anim){
     if(a.tipo==='muro'||a.tipo==='cono'||a.tipo==='gradino'){ add(a.x,g-20); add(a.x+(a.w||8),g); }
     if(a.tipo==='elastico'){ for(const v of [a.da,a.a]) if(Array.isArray(v)) add(v[0],v[1]); }
   }
-  add(x0, g+4);
+  add(x0, GROUND+4); g=GROUND;
   const pad=16;
-  let w=(x1-x0)+2*pad, h=(g+8-y0)+pad, X0=x0-pad, Y0=y0-pad;
+  let w=(x1-x0)+2*pad, h=(g+8-y0)+pad+10, X0=x0-pad, Y0=y0-pad-10;
   w=Math.max(w,120); h=Math.max(h,120);
   if(w/h < VB_ASPECT){ const nw=h*VB_ASPECT; X0-= (nw-w)/2; w=nw; }
   else { const nh=w/VB_ASPECT; Y0-= (nh-h)*0.75; h=nh; }
@@ -274,7 +274,7 @@ function svgCorpo(anim, state, opt){
   const vb = opt.vb || vbCorpo(anim);
   const bg = opt.trasparente ? '' : `<rect x="${vb[0]}" y="${vb[1]}" width="${vb[2]}" height="${vb[3]}" fill="${col.sfondo}"/>`;
   return `<svg viewBox="${vb.join(' ')}" xmlns="http://www.w3.org/2000/svg" ${opt.attrs||''}>${bg}
-<line x1="${r1(vb[0]+8)}" y1="${g+1.5}" x2="${r1(vb[0]+vb[2]-8)}" y2="${g+1.5}" stroke="${col.suolo}" stroke-width="3" stroke-linecap="round"/>
+<line x1="${r1(vb[0]+8)}" y1="${GROUND+1.5}" x2="${r1(vb[0]+vb[2]-8)}" y2="${GROUND+1.5}" stroke="${col.suolo}" stroke-width="3" stroke-linecap="round"/>
 ${attrezziSVG(att,J,col,'sotto')}${ghost}${omino(J,{col, vista, evidenzia:ev})}${attrezziSVG(att,J,col,'sopra')}</svg>`;
 }
 

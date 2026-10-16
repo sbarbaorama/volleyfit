@@ -898,5 +898,534 @@ E({id:'rec-schiena-gatto', titolo:'Gatto e cammello', obiettivo:'Recupero', ambi
 
   anim:corpo('lato', [['quadrupedia',null,0.3],['gatto',1.4,0.6],['quadrupedia',1.1,0.2],['cammello',1.4,0.6]], {ancora:'hip', attrezzi:[{tipo:'tappetino', x:20, w:160}]})});
 
+
+/* =================================================================== AGGIUNTE 1.1 · TECNICA */
+E({id:'bat-corta-lunga', titolo:'Battuta corta e lunga', obiettivo:'Tecnica', ambito:'Battuta',
+  descrizione:'Due bersagli nell\'altro campo: uno subito dietro la linea dei 3 metri, uno vicino alla linea di fondo. Si batte alternando corta e lunga.',
+  serveA:'Cambiare la profondità obbliga chi riceve ad andare avanti e indietro, e molti ricevitori soffrono la palla corta.',
+  lavora:{fondamentali:['Battuta'], muscoli:['spalle']}, difficolta:3, giocatori:[2,12], durata:12,
+  materiale:['Palloni','Coni'], materialeNote:'2 cerchi o tappetini come bersagli', pacchetti:['pk-fondamentali'], tags:['profondità','battuta tattica'],
+  passi:[
+    ['Corta','Lancio uguale al solito, colpo più lento e accompagnato: la palla passa la rete bassa e cade dietro la linea dei 3 metri.',1],
+    ['Lunga','Stesso lancio, colpo più deciso al centro della palla: la palla scende vicino alla linea di fondo.',3],
+    ['Conta','Alterna corta e lunga: 10 battute, contate quante cadono nel bersaglio giusto.',3]],
+  attenzione:['Lancio identico per le due battute: cambia solo la forza e la durata del colpo.','Sulla corta la palla deve superare la rete di poco.','Sulla lunga mira un metro dentro la linea, non sulla riga.'],
+  errori:[['La corta va in rete','Colpisci più sotto la palla e accompagna verso l\'alto: deve salire prima di scendere.'],['La lunga esce','Colpisci più al centro e meno da sotto; accorcia l\'accompagnamento del braccio.']],
+  varianti:{facile:'Battuta dal basso, bersagli grandi.', difficile:'Un ricevitore in campo prova a prendere la palla: il punto vale se non ci arriva.'},
+  anim:{tipo:'campo', vista:'intero', zone:true, elementi:[at('b','B'), be('t1'), be('t2'), pa('p1'), pa('p2')],
+    fotogrammi:[F({b:[-0.8,4.5], t1:[12.8,4.5], t2:[16.6,6.8], p1:[-0.45,4.2], p2:[-1.4,4.9]},null,0.6),
+      F({p1:[12.8,4.5]},1.2,0.4,1.6), F({p2:[-0.45,4.2]},0.5,0.4,0.4), F({p2:[16.6,6.8]},1.6,0.9,2.8)]}});
+
+E({id:'bat-sotto-pressione', titolo:'Battuta sotto pressione', obiettivo:'Tecnica', ambito:'Battuta',
+  descrizione:'Ogni giocatore batte una serie di 5 battute; dopo un errore deve fare un giro di corsa intorno al campo prima di riprendere.',
+  serveA:'In partita si batte dopo uno scambio lungo o sul punteggio stretto: allenarsi con un po\' di pressione aiuta a sbagliare meno.',
+  lavora:{fondamentali:['Battuta'], muscoli:['spalle']}, difficolta:3, giocatori:[2,12], durata:12,
+  materiale:['Palloni'], pacchetti:['pk-fondamentali','pk-gioco'], tags:['concentrazione','routine','punteggio'],
+  passi:[
+    ['Routine','Prima di ogni battuta, sempre la stessa routine: 2 palleggi a terra, respiro, sguardo al bersaglio.',0],
+    ['Battuta','Battuta sicura nel campo: conta solo che entri.',1],
+    ['Errore','Se sbagli, giro di corsa intorno al campo e riprendi la serie da capo.',2]],
+  attenzione:['Sempre la stessa routine, anche quando hai fretta.','Dopo un errore, un respiro lungo prima della battuta successiva.','In questo esercizio conta la sicurezza, non la forza.'],
+  errori:[['Dopo un errore si batte subito, di fretta','Rifai la routine completa: è proprio quella che riporta la calma.'],['Si batte piano per paura di sbagliare','Mantieni la tua battuta normale; riduci solo la forza, non il gesto.']],
+  varianti:{facile:'Serie da 3 battute, senza giro di corsa.', difficile:'La squadra vince solo se tutti completano la serie; chi sbaglia fa ripartire anche il compagno.'},
+  anim:{tipo:'campo', vista:'intero', elementi:[at('b','B'), pa()],
+    fotogrammi:[F({b:[-0.8,6.2], pa:[-0.45,5.9]},null,0.9), F({pa:[14.8,4.0]},1.6,0.4,2.6), F({b:[-1.3,9.9]},0.9,0.2), F({b:[19.4,9.9]},2.0,0.2), F({b:[19.4,-0.9]},0.9,0.2), F({b:[-1.3,-0.9]},2.0,0.2), F({b:[-0.8,6.2]},0.8,0.6)]}});
+ES[ES.length-1].anim.fotogrammi[0].ritorno=0.4;
+
+E({id:'ric-uscita-attacco', titolo:'Ricezione e uscita per l\'attacco', obiettivo:'Tecnica', ambito:'Ricezione',
+  descrizione:'Il giocatore di banda riceve in zona 5, poi esce subito fuori dal campo per prendere la rincorsa e attacca l\'alzata del palleggiatore in zona 4.',
+  serveA:'Senza libero chi riceve è spesso anche chi attacca: il passaggio dalla ricezione alla rincorsa deve diventare automatico.',
+  lavora:{fondamentali:['Ricezione','Attacco'], muscoli:['quadricipiti']}, difficolta:3, giocatori:[3,6], durata:15,
+  materiale:['Palloni'], pacchetti:['pk-fondamentali','pk-gioco'], tags:['senza libero','transizione','banda'],
+  passi:[
+    ['Ricezione','S riceve la battuta in zona 5 e indirizza verso P.',1],
+    ['Uscita','Subito dopo la ricezione S arretra e si apre verso l\'esterno del campo, all\'altezza della linea dei 3 metri.',2],
+    ['Alzata e attacco','P alza in zona 4; S fa la rincorsa e attacca.',4]],
+  attenzione:['Prima la ricezione: l\'attacco viene dopo, non anticiparlo.','Uscita ampia, verso l\'esterno: la rincorsa da zona 4 parte da fuori campo.','Guarda la palla mentre esci, non girarle le spalle.'],
+  errori:[['Si attacca senza rincorsa, da fermi','Esci di 2-3 passi oltre la linea laterale: serve spazio per la rincorsa.'],['La ricezione è affrettata perché si pensa già all\'attacco','Fermati sulla ricezione e solo dopo muoviti: la palla buona al palleggiatore viene prima.']],
+  varianti:{facile:'L\'allenatore lancia la palla invece della battuta.', difficile:'Il palleggiatore sceglie se alzare a chi ha ricevuto o all\'altro attaccante.'},
+  anim:{tipo:'campo', vista:'intero', zone:true, elementi:[at('s','S'), at('p','P'), av('b','B'), pa()],
+    fotogrammi:[F({s:[2.4,2.0], p:[8.4,6.0], b:[19.3,2.6], pa:[19.05,3.0]},null,0.6), F({pa:[2.6,2.25]},1.6,0.2,2.6), F({pa:[8.2,5.7], s:[5.4,-0.6]},1.3,0.2,2.2), F({pa:[8.0,1.6], s:[7.3,1.4]},1.4,0.1,3.2), F({pa:[15.4,6.2]},0.5,1.0,0.5)]}});
+
+E({id:'ric-rotazione-zone', titolo:'Ricezione a rotazione nelle zone 1, 6 e 5', obiettivo:'Tecnica', ambito:'Ricezione',
+  descrizione:'Un ricevitore riceve tre battute di fila, una per zona: parte in zona 1, poi si sposta in 6 e infine in 5. Poi cambia.',
+  serveA:'Ogni zona ha un angolo diverso verso il palleggiatore: in zona 1 e 5 bisogna orientare le braccia verso l\'interno.',
+  lavora:{fondamentali:['Ricezione'], muscoli:['quadricipiti','adduttori']}, difficolta:2, giocatori:[3,4], durata:12,
+  materiale:['Palloni'], pacchetti:['pk-fondamentali'], tags:['orientamento','zone'],
+  passi:[
+    ['Zona 1','Ricevi la battuta in zona 1: la spalla destra un po\' più bassa, braccia rivolte verso P.',1],
+    ['Zona 6','Spostati in zona 6 e ricevi al centro, braccia dritte verso P.',3],
+    ['Zona 5','Ultima palla in zona 5: la spalla sinistra un po\' più bassa per chiudere verso il centro.',5]],
+  attenzione:['Il piano delle braccia guarda il palleggiatore, non il battitore.','Dalle zone laterali abbassa la spalla esterna.','Tra una battuta e l\'altra spostati con passi laterali.'],
+  errori:[['Dalla zona 1 la palla va fuori dal lato destro','Abbassa la spalla destra e porta il piede destro un po\' avanti.'],['Dalla zona 5 la palla va verso la rete','Ruota il busto verso P prima del contatto; non respingere la palla nella direzione da cui arriva.']],
+  varianti:{facile:'Lanci a due mani dall\'altro campo.', difficile:'Battuta forte e ricevitore che deve chiamare la zona prima del contatto.'},
+  anim:{tipo:'campo', vista:'intero', zone:true, elementi:[at('r','R'), at('p','P'), av('b','B'), pa('p1'), pa('p2'), pa('p3')],
+    fotogrammi:[F({r:[2.0,7.0], p:[8.4,6.0], b:[19.3,4.6], p1:[19.05,4.3], p2:[19.6,5.1], p3:[19.8,5.3]},null,0.5),
+      F({p1:[2.25,6.8]},1.5,0.1,2.4), F({p1:[8.2,5.7], r:[1.8,4.5]},1.2,0.3,2.2), F({p2:[2.05,4.3]},1.5,0.1,2.4), F({p2:[8.2,5.7], r:[2.0,2.0]},1.2,0.3,2.2), F({p3:[2.25,2.2]},1.5,0.1,2.4), F({p3:[8.2,5.7]},1.2,0.9,2.2)]}});
+
+E({id:'pal-alzata-dietro', titolo:'Alzata dietro in zona 2', obiettivo:'Tecnica', ambito:'Palleggio',
+  descrizione:'Il palleggiatore riceve una palla alta e la alza all\'indietro, sopra la testa, verso la zona 2. Un compagno in 2 controlla la precisione.',
+  serveA:'Un palleggiatore che alza anche dietro costringe il muro avversario ad aspettare.',
+  lavora:{fondamentali:['Palleggio'], muscoli:['spalle','lombari']}, difficolta:4, giocatori:[3,4], durata:12,
+  materiale:['Palloni'], pacchetti:['pk-fondamentali'], tags:['alzatore','opposto'],
+  passi:[
+    ['Posizione','P è tra le zone 2 e 3, con la schiena verso la zona 2. L\'allenatore lancia dal centro del campo.',0],
+    ['Sotto la palla','P arriva sotto la palla con le stesse mani dell\'alzata in avanti.',1],
+    ['Alzata dietro','All\'ultimo spinge la palla all\'indietro sopra la testa, inarcando appena la schiena; la palla scende in zona 2.',2],
+    ['Controllo','O, in zona 2, blocca la palla.',3]],
+  attenzione:['Stessa posizione di partenza dell\'alzata in avanti: non deve capirsi prima.','La palla si spinge sopra la fronte, non dietro la nuca.','Spingi con le braccia verso l\'alto e indietro, la schiena si inarca appena.'],
+  errori:[['L\'alzata dietro è corta','Tieni la palla più in alto sopra la fronte e spingi con le gambe insieme alle braccia.'],['Si capisce subito che sarà un\'alzata dietro','Sistema i piedi come per l\'alzata in avanti; cambia solo la spinta finale.']],
+  varianti:{facile:'Alzata dietro corta, a 2 metri, verso un compagno.', difficile:'P sceglie tra zona 4 e zona 2 a ogni palla.'},
+  anim:{tipo:'campo', vista:'intero', zone:true, elementi:[at('p','P'), at('o','O'), all(), pa()],
+    fotogrammi:[F({p:[8.3,5.2], o:[6.5,8.6], all:[4.0,4.5], pa:[4.35,4.35]},null,0.5), F({pa:[8.1,5.0]},1.2,0.3,2.4), F({pa:[8.1,7.8]},1.0,0.2,2.4), F({o:[7.7,7.9], pa:[7.85,7.75]},0.6,0.9)]}});
+
+E({id:'pal-alzata-da-difesa', titolo:'Alzata dopo la difesa', obiettivo:'Tecnica', ambito:'Palleggio',
+  descrizione:'Il palleggiatore difende in zona 1, poi corre a rete e alza la palla difesa da un compagno verso la zona 4.',
+  serveA:'Quando il palleggiatore è in seconda linea deve difendere e poi alzare: la corsa verso rete va allenata.',
+  lavora:{fondamentali:['Palleggio','Difesa'], muscoli:['quadricipiti','spalle']}, difficolta:4, giocatori:[3,6], durata:12,
+  materiale:['Palloni'], pacchetti:['pk-fondamentali'], tags:['palleggiatore','transizione','penetrazione'],
+  passi:[
+    ['In difesa','P è in zona 1, in posizione di difesa. L\'allenatore attacca verso D in zona 5.',1],
+    ['Corsa a rete','Appena vede che la palla non è per lui, P corre verso la rete tra le zone 2 e 3.',2],
+    ['Alzata','D difende alto verso il centro; P si ferma sotto la palla e alza in zona 4.',4]],
+  attenzione:['Prima difendi: P parte solo quando la palla va verso un compagno.','Corri guardando la palla, non la rete.','Fermati sotto la palla prima di alzare, anche se la difesa è imprecisa.'],
+  errori:[['P parte troppo presto e lascia scoperta la zona 1','Aspetta il colpo dell\'allenatore: parti quando capisci dove va la palla.'],['L\'alzata è imprecisa perché si arriva di corsa','Ultimi passi corti e frenati; se la palla è bassa, alza in bagher alto.']],
+  varianti:{facile:'L\'allenatore lancia la palla a D invece di attaccarla.', difficile:'D difende in modo impreciso apposta: P deve adattarsi.'},
+  anim:{tipo:'campo', vista:'intero', zone:true, elementi:[at('p','P'), at('d','D'), all(), pa()],
+    fotogrammi:[F({p:[2.4,7.3], d:[2.4,1.8], all:[10.8,2.6], pa:[10.6,2.35]},null,0.6), F({pa:[2.65,2.05]},0.6,0.1,0.4), F({p:[8.2,5.6], pa:[7.2,5.0]},1.4,0.1,3.0), F({pa:[8.0,5.4]},0.3,0.2,0.4), F({pa:[8.0,1.6]},1.4,0.9,3.2)]}});
+
+E({id:'att-seconda-linea', titolo:'Attacco da seconda linea', obiettivo:'Tecnica', ambito:'Attacco',
+  descrizione:'L\'attaccante stacca dietro la linea dei 3 metri, in zona 1 o 6, e attacca un\'alzata più bassa e più lontana dalla rete.',
+  serveA:'Un attaccante in più quando in prima linea ce ne sono solo due, utile anche senza libero.',
+  lavora:{fondamentali:['Attacco'], muscoli:['quadricipiti','glutei','spalle']}, difficolta:4, giocatori:[3,8], durata:15,
+  materiale:['Palloni'], pacchetti:['pk-fondamentali'], tags:['pipe','seconda linea','opposto'],
+  passi:[
+    ['Partenza','A parte da dietro, in zona 1 o 6.',0],
+    ['Alzata','P alza una palla tesa che scende a circa 1 metro dietro la linea dei 3 metri.',1],
+    ['Stacco dietro la linea','A stacca prima della linea dei 3 metri: può atterrare oltre, ma non toccarla allo stacco.',2],
+    ['Colpo','Colpisce la palla davanti a sé, verso il fondo del campo avversario.',3]],
+  attenzione:['Lo stacco deve avvenire dietro la linea dei 3 metri: è la regola.','Colpo in avanti, verso il fondo: la rete è lontana.','Rincorsa più corta del solito.'],
+  errori:[['Si pesta la linea dei 3 metri allo stacco','Parti un passo più indietro e fai l\'ultimo passo con il piede che frena prima della linea.'],['La palla va in rete','Colpisci più in alto e verso il fondo del campo: da lontano serve una traiettoria più lunga.']],
+  varianti:{facile:'Attacco da fermo con salto, su palla lanciata.', difficile:'Con un muro avversario.'},
+  anim:{tipo:'campo', vista:'intero', zone:true, elementi:[at('a','A'), at('p','P'), pa()],
+    fotogrammi:[F({a:[0.8,4.2], p:[8.4,6.0], pa:[8.15,5.75]},null,0.6), F({pa:[5.0,4.4], a:[3.6,4.3]},1.4,0.1,2.4), F({a:[4.6,4.4]},0.2,0.1), F({pa:[16.2,3.0]},0.6,1.0,0.6)]}});
+
+E({id:'att-mani-fuori', titolo:'Attacco mani-fuori sul muro', obiettivo:'Tecnica', ambito:'Attacco',
+  descrizione:'Con un muro avversario in zona 2, l\'attaccante di zona 4 colpisce volutamente le mani esterne del muro per mandare la palla fuori.',
+  serveA:'Quando il muro è ben piazzato e non si passa, usare le sue mani è un modo per fare punto.',
+  lavora:{fondamentali:['Attacco'], muscoli:['spalle','obliqui']}, difficolta:4, giocatori:[3,6], durata:12,
+  materiale:['Palloni'], pacchetti:['pk-fondamentali'], tags:['muro avversario','tocco'],
+  passi:[
+    ['Alzata in 4','P alza in zona 4, vicino all\'antenna; A fa la rincorsa.',1],
+    ['Guarda il muro','Durante il salto A guarda dove sono le mani del muro.',2],
+    ['Colpo verso l\'esterno','Colpisce la palla in diagonale verso l\'esterno, sulla mano più vicina all\'antenna: la palla tocca il muro ed esce.',3]],
+  attenzione:['Alzata vicina all\'antenna: senza spazio verso l\'esterno il mani-fuori non riesce.','Colpo deciso, con il polso che ruota verso l\'esterno.','Mira la mano esterna del muro, non la testa del murista.'],
+  errori:[['La palla resta dentro il campo avversario','Colpisci più verso l\'esterno e più forte, sulla parte alta della mano.'],['La palla esce senza toccare il muro','Avvicina il colpo al muro: devi colpire la mano, non evitarla.']],
+  varianti:{facile:'Muro fermo con le mani alzate, senza saltare.', difficile:'Il muro si sposta all\'ultimo e l\'attaccante sceglie tra mani-fuori e diagonale.'},
+  anim:{tipo:'campo', vista:'intero', zone:true, elementi:[at('a','A'), at('p','P'), av('m','M'), pa()],
+    fotogrammi:[F({a:[5.0,0.6], p:[8.4,6.0], m:[9.7,0.9], pa:[8.15,5.75]},null,0.6), F({a:[7.4,1.1], pa:[8.0,0.9]},1.4,0.1,3.2), F({pa:[9.3,0.6]},0.25,0.0,0.1), F({pa:[12.0,-1.1]},0.6,1.0,0.8)]}});
+
+E({id:'muro-lettura', titolo:'Muro a lettura dell\'alzata', obiettivo:'Tecnica', ambito:'Muro',
+  descrizione:'Il centrale aspetta in zona 3 senza indovinare: guarda la palla, poi le mani dell\'alzatore, poi la direzione dell\'alzata, e solo allora si sposta.',
+  serveA:'Partire «a lettura» evita di farsi ingannare dall\'alzatore avversario.',
+  lavora:{fondamentali:['Muro'], muscoli:['quadricipiti','polpacci']}, difficolta:4, giocatori:[3,6], durata:12,
+  materiale:['Palloni'], pacchetti:['pk-fondamentali'], tags:['centrale','lettura','sequenza'],
+  passi:[
+    ['Guarda la palla','C, in zona 3, segue la palla che arriva all\'alzatore avversario.',0],
+    ['Guarda l\'alzatore','Quando la palla è sopra l\'alzatore, C guarda le sue mani e il corpo.',1],
+    ['Parti','Appena la palla parte verso un lato, C si sposta con passi laterali.',2],
+    ['Salta','C salta davanti all\'attaccante, insieme al compagno di muro se c\'è.',3]],
+  attenzione:['Sequenza degli sguardi: palla, alzatore, palla, attaccante.','Non partire prima che la palla lasci le mani dell\'alzatore.','Mani sempre alte durante lo spostamento.'],
+  errori:[['Il centrale parte prima e si fa ingannare','Aspetta l\'alzata: meglio arrivare un po\' tardi che dalla parte sbagliata.'],['Si guarda solo l\'attaccante','Prima l\'alzatore: è lui che decide dove va la palla.']],
+  varianti:{facile:'L\'alzatore avversario indica la direzione con la voce.', difficile:'Tre possibili attacchi: zona 4, zona 2 e primo tempo.'},
+  anim:{tipo:'campo', vista:'intero', zone:true, elementi:[at('c','C'), av('al','Al'), av('a4','A4'), av('a2','A2'), pa()],
+    fotogrammi:[F({c:[8.5,4.5], al:[9.9,4.9], a4:[12.8,8.4], a2:[12.8,0.7], pa:[14.5,4.5]},null,0.5), F({pa:[10.15,4.7]},1.3,0.4,2.4), F({pa:[10.2,1.6], a2:[10.8,1.5]},1.2,0.1,2.6), F({c:[8.5,1.8]},0.6,0.9)]}});
+
+E({id:'muro-primo-tempo', titolo:'Muro sul primo tempo', obiettivo:'Tecnica', ambito:'Muro',
+  descrizione:'Il centrale avversario attacca una palla veloce e bassa vicino all\'alzatore; il nostro centrale salta subito davanti a lui, senza spostarsi.',
+  serveA:'Sul primo tempo non c\'è tempo per leggere: bisogna essere già davanti al centrale avversario.',
+  lavora:{fondamentali:['Muro'], muscoli:['quadricipiti','polpacci','spalle']}, difficolta:4, giocatori:[3,6], durata:10,
+  materiale:['Palloni'], pacchetti:['pk-fondamentali'], tags:['centrale','primo tempo','veloce'],
+  passi:[
+    ['Davanti al centrale','C si mette di fronte al centrale avversario, che si avvicina all\'alzatore.',0],
+    ['Salto con lui','Quando il centrale avversario salta, C salta subito dopo, con le mani dritte sopra la rete.',1],
+    ['Chiudi','Mani ferme e vicine: la palla veloce rimbalza sul muro.',2]],
+  attenzione:['Sul primo tempo si salta quasi insieme all\'attaccante.','Mani dritte sopra la rete, non spinte in avanti.','Salto breve e veloce: non serve caricare tanto.'],
+  errori:[['Si salta tardi','Guarda il centrale avversario, non la palla: quando lui stacca, stacca anche tu.'],['Le mani si aprono','Pollici in alto e dita larghe ma mani vicine tra loro.']],
+  varianti:{facile:'Il centrale avversario attacca da fermo su palla lanciata.', difficile:'Il centrale avversario può fingere il primo tempo e la palla va in zona 4.'},
+  anim:{tipo:'campo', vista:'intero', zone:true, elementi:[at('c','C'), av('al','Al'), av('ca','Ca'), pa()],
+    fotogrammi:[F({c:[8.5,4.6], al:[9.9,6.6], ca:[12.0,4.6], pa:[14.0,5.6]},null,0.5), F({ca:[10.3,4.6], pa:[10.15,6.35]},1.2,0.1,2.2), F({pa:[10.05,5.0]},0.25,0.0,0.4), F({pa:[9.25,4.75]},0.15,0.0,0.1), F({pa:[11.6,3.6]},0.5,0.9,0.6)]}});
+
+E({id:'dif-palla-rete', titolo:'Recupero della palla dalla rete', obiettivo:'Tecnica', ambito:'Difesa',
+  descrizione:'L\'allenatore lancia la palla contro la rete; il giocatore legge come rimbalza e la recupera in bagher, alta, verso il centro.',
+  serveA:'Una ricezione o una difesa che finisce in rete si può salvare, se si sa come rimbalza.',
+  lavora:{fondamentali:['Difesa'], muscoli:['quadricipiti']}, difficolta:2, giocatori:[2,4], durata:8,
+  materiale:['Palloni'], pacchetti:['pk-fondamentali'], tags:['rete','recupero'],
+  passi:[
+    ['Lancio in rete','L\'allenatore lancia la palla nella rete, a diverse altezze.',1],
+    ['Lettura','Palla in basso nella rete: cade quasi in verticale. Palla in alto: rimbalza più lontano dalla rete.',1],
+    ['Recupero','Il giocatore si mette di fianco alla rete, basso, e manda la palla alta verso il centro del campo.',2]],
+  attenzione:['Mettiti di fianco alla rete, non di fronte.','Resta basso: la palla scende vicino a terra.','Recupero alto, verso l\'interno del campo.'],
+  errori:[['Si arriva troppo vicini alla rete','Lascia spazio: la palla esce dalla rete di 50-100 centimetri.'],['Il recupero torna in rete','Piano delle braccia rivolto verso l\'alto e verso il centro del campo, non verso la rete.']],
+  varianti:{facile:'Palla lanciata sempre in basso nella rete.', difficile:'Lanci forti in alto e recupero da far arrivare al palleggiatore.'},
+  anim:{tipo:'campo', vista:'meta', elementi:[at('g','G'), all(), pa()],
+    fotogrammi:[F({g:[6.0,4.5], all:[4.6,6.5], pa:[4.95,6.3]},null,0.6), F({pa:[8.85,4.8], g:[7.4,4.3]},0.8,0.0,1.2), F({pa:[7.9,4.5]},0.6,0.1,0.4), F({pa:[4.8,4.0]},1.2,0.9,2.8)]}});
+
+E({id:'dif-difesa-palleggio', titolo:'Difesa e risposta in palleggio', obiettivo:'Tecnica', ambito:'Difesa',
+  descrizione:'A coppie: uno attacca, l\'altro difende alto, poi palleggia la palla di nuovo all\'attaccante, che attacca ancora.',
+  serveA:'Lega difesa e controllo: dopo la difesa bisogna essere già pronti per il tocco successivo.',
+  lavora:{fondamentali:['Difesa','Palleggio','Attacco'], muscoli:['quadricipiti','spalle']}, difficolta:3, giocatori:[2,2], durata:10,
+  materiale:['Palloni'], pacchetti:['pk-fondamentali','pk-riscaldamento'], tags:['coppie','continuità'],
+  passi:[
+    ['Attacco','A attacca con un colpo controllato verso D.',1],
+    ['Difesa alta','D difende alto, sopra la propria testa.',2],
+    ['Palleggio','D palleggia la palla ad A, che attacca di nuovo. Avanti senza far cadere la palla.',3]],
+  attenzione:['La difesa deve salire alta e restare vicino a te.','Tra difesa e palleggio, rimettiti sotto la palla con un passo.','Attacco controllato: lo scopo è tenere viva la palla.'],
+  errori:[['La difesa va subito dall\'altra parte','Ammortizza e manda la palla verso l\'alto, non verso il compagno.'],['Il palleggio è affrettato','Aspetta che la palla scenda sopra la fronte prima di palleggiarla.']],
+  varianti:{facile:'Dopo la difesa si può bloccare la palla e rilanciarla.', difficile:'Contate gli scambi senza errori: obiettivo 20.'},
+  anim:{tipo:'campo', vista:'meta', elementi:[at('a','A'), at('d','D'), pa()],
+    fotogrammi:[F({a:[6.6,4.5], d:[2.6,4.5], pa:[6.3,4.3]},null,0.3), F({pa:[2.9,4.35]},0.45,0.1,0.3), F({pa:[2.95,4.25]},0.9,0.1,1.8), F({pa:[6.3,4.3]},1.1,0.4,2.4)]}});
+
+/* =================================================================== AGGIUNTE 1.1 · GIOCO E TATTICA */
+E({id:'tat-cambio-palla-p-avanti', titolo:'Cambio palla con il palleggiatore in prima linea', obiettivo:'Tattica', ambito:'Cambio palla',
+  descrizione:'Rotazione con il palleggiatore in zona 2: riceve in prima linea, a rete, e ci sono solo due attaccanti avanti. Si allena l\'alzata in zona 4 e il primo tempo del centrale.',
+  serveA:'Sono le rotazioni più difficili in attacco: avere due soluzioni a rete evita che il muro avversario si concentri su una sola.',
+  lavora:{fondamentali:['Ricezione','Palleggio','Attacco'], muscoli:[]}, difficolta:4, giocatori:[7,12], durata:20,
+  materiale:['Palloni'], pacchetti:['pk-gioco'], tags:['senza libero','rotazioni','primo tempo'],
+  passi:[
+    ['Formazione','P in zona 2 a rete. Ricevono S1, C2 e S2 in seconda linea; C1 e S3 sono a rete in zona 3 e 4.',0],
+    ['Ricezione','La ricezione va verso P, tra le zone 2 e 3.',1],
+    ['Due soluzioni','C1 parte per il primo tempo davanti a P; S3 prende la rincorsa in zona 4.',2],
+    ['Alzata','P sceglie: primo tempo a C1 oppure alzata alta in zona 4.',3]],
+  attenzione:['Il centrale deve partire sempre, anche se poi non riceve la palla: tiene fermo il muro avversario.','Ricezione un po\' più alta: P è già a rete e ha meno tempo.','Chi riceve copre l\'attacco subito dopo.'],
+  errori:[['Il centrale parte solo se è sicuro di ricevere la palla','Parte a ogni azione: se non attacca lui, ha comunque aiutato il compagno.'],['Il palleggiatore alza sempre in zona 4','Cambia: anche solo un primo tempo ogni tre azioni costringe il muro a restare al centro.']],
+  varianti:{facile:'Alzata sempre in zona 4.', difficile:'Battuta forte; il palleggiatore può anche attaccare di seconda.'},
+  anim:{tipo:'campo', vista:'intero', zone:true, elementi:[at('p','P'), at('c1','C1'), at('s3','S3'), at('s1','S1'), at('c2','C2'), at('s2','S2'), av('b','B'), pa()],
+    fotogrammi:[F({p:[8.3,7.6], c1:[8.3,4.4], s3:[8.0,1.4], s1:[2.4,2.0], c2:[2.0,4.8], s2:[2.4,7.4], b:[19.3,5.0], pa:[19.05,4.8]},null,0.6),
+      F({pa:[2.25,4.65]},1.6,0.2,2.6), F({pa:[8.2,5.7], p:[8.4,5.9], c1:[7.0,4.6], s3:[5.6,0.4]},1.2,0.2,2.2), F({c1:[8.5,5.0], pa:[8.4,5.3], s3:[7.4,1.4]},0.6,0.0,0.8), F({pa:[15.0,3.4]},0.4,1.0,0.3)]}});
+
+E({id:'tat-4contro4', titolo:'4 contro 4 a campo ridotto', obiettivo:'Tattica', ambito:'Gioco',
+  descrizione:'Due squadre da quattro su campo ridotto in larghezza: un palleggiatore e tre giocatori che ricevono e attaccano. Si gioca con battuta dal basso.',
+  serveA:'Più tocchi a testa rispetto al 6 contro 6, ma con ruoli veri: ricezione, alzata, attacco e copertura.',
+  lavora:{fondamentali:['Ricezione','Palleggio','Attacco','Difesa'], muscoli:[]}, difficolta:3, giocatori:[8,8], durata:20,
+  materiale:['Palloni','Coni'], pacchetti:['pk-gioco'], tags:['partitella','ruoli'],
+  passi:[
+    ['Campo','Campo stretto di un metro per lato, segnato con i coni. In ogni squadra un palleggiatore a rete e tre giocatori dietro.',0],
+    ['Ricezione','La battuta dal basso arriva ai tre dietro; chi riceve manda la palla al palleggiatore.',1],
+    ['Attacco','Il palleggiatore alza a uno dei due giocatori che non hanno ricevuto.',3],
+    ['Rotazione','Dopo ogni cambio palla si ruota, così tutti fanno anche il palleggiatore.',4]],
+  attenzione:['Sempre tre tocchi.','Chi non riceve si prepara subito ad attaccare.','Il palleggiatore cambia a ogni rotazione: tutti imparano ad alzare.'],
+  errori:[['Il palleggiatore riceve la battuta','Il palleggiatore resta a rete; la ricezione spetta ai tre dietro.'],['Si attacca sempre dalla stessa parte','Il palleggiatore alterna: prima a sinistra, poi a destra.']],
+  varianti:{facile:'Battuta lanciata a due mani.', difficile:'Battuta dall\'alto e punto doppio se l\'attacco arriva dopo una difesa.'},
+  anim:{tipo:'campo', vista:'intero', elementi:[at('a1','A1'), at('a2','A2'), at('a3','A3'), at('ap','P'), av('b1','B1'), av('b2','B2'), av('b3','B3'), av('bp','Pb'), co('k1'), co('k2'), co('k3'), co('k4'), pa()],
+    fotogrammi:[F({a1:[3.0,1.9], a2:[2.2,4.5], a3:[3.0,7.1], ap:[8.3,5.6], b1:[15.6,1.9], b2:[16.4,4.5], b3:[15.6,7.1], bp:[9.7,3.4], k1:[0,1.0], k2:[0,8.0], k3:[18,1.0], k4:[18,8.0], pa:[18.3,4.2]},null,0.6),
+      F({pa:[2.45,4.3]},1.6,0.2,2.6), F({pa:[8.1,5.35]},1.2,0.2,2.2), F({pa:[8.0,1.8], a1:[7.3,1.8]},1.3,0.1,3.0), F({pa:[15.2,5.8]},0.5,1.0,0.5)]}});
+
+E({id:'tat-ondate', titolo:'Gioco a ondate: due punti di fila', obiettivo:'Tattica', ambito:'Gioco',
+  descrizione:'Partita 6 contro 6 in cui una squadra guadagna il punto della «ondata» solo se vince due azioni di fila: prima il cambio palla, poi una palla libera lanciata dall\'allenatore.',
+  serveA:'Abitua a non calare di concentrazione dopo un punto vinto, il momento in cui spesso si perde il successivo.',
+  lavora:{fondamentali:['Ricezione','Attacco','Difesa'], muscoli:[]}, difficolta:3, giocatori:[12,14], durata:25,
+  materiale:['Palloni'], pacchetti:['pk-gioco'], tags:['partitella','concentrazione','wash'],
+  passi:[
+    ['Prima azione','La squadra A riceve la battuta e gioca il punto.',1],
+    ['Seconda azione','Se A vince il primo punto, l\'allenatore lancia subito una palla libera ad A, che deve vincere anche quella.',3],
+    ['Il punto','Solo con due azioni vinte di fila A conquista il punto dell\'ondata; altrimenti nessuno segna. Si gioca a 5 ondate.',4]],
+  attenzione:['Dopo il primo punto tornate subito in posizione: la palla libera arriva in pochi secondi.','Sulla palla libera i giocatori a rete arretrano.','Contate ad alta voce le ondate: aiuta a restare concentrati.'],
+  errori:[['Dopo il primo punto ci si rilassa','Chiamate «ancora uno!» appena finisce l\'azione e rimettetevi in posizione.'],['Confusione sulla palla libera','Il palleggiatore chiama «libera» e va al suo posto; i compagni arretrano alla linea dei 3 metri.']],
+  varianti:{facile:'Basta una sola azione vinta.', difficile:'Tre azioni di fila: cambio palla, palla libera e attacco dell\'allenatore da difendere.'},
+  anim:{tipo:'campo', vista:'intero', zone:true, elementi:[at('s','S'), at('p','P'), at('r','R'), av('b','B'), all(), pa('p1'), pa('p2')],
+    fotogrammi:[F({s:[5.4,1.3], p:[8.3,6.0], r:[2.2,4.5], b:[19.3,4.0], all:[-1.2,9.6], p1:[19.05,3.8], p2:[-1.0,9.3]},null,0.6),
+      F({p1:[2.45,4.3]},1.6,0.1,2.6), F({p1:[8.1,5.7]},1.1,0.1,2.2), F({p1:[15.4,6.0], s:[7.3,1.5]},1.4,0.4,3.0), F({p2:[4.0,5.0], s:[5.2,1.0]},1.4,0.8,3.0)]}});
+
+E({id:'tat-muro-contrattacco', titolo:'Dal muro al contrattacco', obiettivo:'Tattica', ambito:'Difesa e contrattacco',
+  descrizione:'L\'attaccante di zona 4 mura, atterra, si gira e si apre per la rincorsa; la squadra difende e lui contrattacca la palla alzata.',
+  serveA:'Dopo il muro c\'è pochissimo tempo per attaccare: il movimento «atterra, girati, apriti» deve essere automatico.',
+  lavora:{fondamentali:['Muro','Attacco','Difesa'], muscoli:['quadricipiti']}, difficolta:4, giocatori:[5,8], durata:15,
+  materiale:['Palloni'], materialeNote:'un rialzo per l\'allenatore', pacchetti:['pk-gioco'], tags:['transizione','rigiocata'],
+  passi:[
+    ['Muro','S salta a muro in zona 4 sull\'attacco dell\'allenatore.',1],
+    ['Atterra e apriti','Atterra, si gira verso il proprio campo e arretra in diagonale fino alla linea dei 3 metri.',2],
+    ['Difesa e alzata','D difende la palla verso P, che alza in zona 4.',3],
+    ['Contrattacco','S fa una rincorsa corta e attacca.',4]],
+  attenzione:['Atterra a due piedi prima di girarti.','Arretra girandoti verso il campo, guardando la palla.','Rincorsa corta: due o tre passi bastano.'],
+  errori:[['Si resta a rete a guardare la difesa','Appena atterri, il primo passo è indietro e verso l\'esterno.'],['Si contrattacca senza salto','Anche con una rincorsa di due passi si deve staccare a due piedi.']],
+  varianti:{facile:'Senza salto a muro: solo il movimento di apertura.', difficile:'L\'allenatore alterna attacco e pallonetto dietro il muro.'},
+  anim:{tipo:'campo', vista:'intero', zone:true, elementi:[at('s','S'), at('p','P'), at('d','D'), all(), pa()],
+    fotogrammi:[F({s:[8.5,1.6], p:[8.5,6.2], d:[2.6,4.6], all:[10.8,1.8], pa:[10.6,1.6]},null,0.6), F({pa:[2.85,4.35]},0.7,0.2,0.4), F({s:[5.4,0.6], p:[8.3,5.8]},0.9,0.1), F({pa:[8.1,5.55]},1.2,0.2,2.6), F({pa:[8.0,1.5], s:[7.3,1.4]},1.3,0.1,3.0), F({pa:[15.6,5.0]},0.5,1.0,0.5)]}});
+
+E({id:'tat-copertura-centrale', titolo:'Copertura del primo tempo', obiettivo:'Tattica', ambito:'Copertura',
+  descrizione:'Sull\'attacco veloce del centrale la palla murata torna giù subito vicino a lui: la copertura la fanno il palleggiatore e i giocatori più vicini, già bassi.',
+  serveA:'Il primo tempo dura un attimo: la copertura deve essere preparata prima dell\'attacco, non dopo.',
+  lavora:{fondamentali:['Difesa','Attacco'], muscoli:['quadricipiti']}, difficolta:4, giocatori:[6,8], durata:12,
+  materiale:['Palloni'], pacchetti:['pk-gioco'], tags:['centrale','coppa','primo tempo'],
+  passi:[
+    ['Primo tempo','P alza veloce a C davanti a sé. Durante l\'alzata, S e D si avvicinano a C, bassi.',1],
+    ['Palla murata','Il muro avversario rimanda la palla, che cade a 1-2 metri da C.',2],
+    ['Recupero','Il più vicino la difende alta verso P, che rigioca.',3]],
+  attenzione:['Su un attacco veloce ci si avvicina mentre la palla è ancora in aria.','Bassi e vicini: a 1-2 metri dal centrale.','Il palleggiatore copre subito dopo l\'alzata.'],
+  errori:[['La copertura arriva quando la palla è già a terra','Muovetevi durante l\'alzata, non quando vedete il muro.'],['Copertura troppo lontana','Sul primo tempo la palla murata cade vicinissima: state a un passo o due dal centrale.']],
+  varianti:{facile:'L\'allenatore simula il muro rimandando la palla con le mani.', difficile:'Muro vero di due giocatori.'},
+  anim:{tipo:'campo', vista:'intero', zone:true, elementi:[at('c','C'), at('p','P'), at('s','S'), at('d','D'), av('m','M'), pa()],
+    fotogrammi:[F({c:[6.6,4.6], p:[8.4,6.0], s:[5.2,1.3], d:[2.4,4.6], m:[9.7,4.6], pa:[8.15,5.75]},null,0.6), F({c:[8.3,4.6], pa:[8.35,4.85], s:[6.3,2.7], d:[5.7,5.3], p:[7.4,6.5]},0.6,0.0,0.6), F({pa:[9.15,4.7]},0.15,0.0,0.1), F({pa:[6.6,4.1]},0.6,0.2,1.0), F({pa:[7.9,5.6]},1.0,0.9,2.2)]}});
+
+/* =================================================================== AGGIUNTE 1.1 · FISICO */
+E({id:'mob-affondo-braccia', titolo:'Affondo con allungamento in alto', obiettivo:'Fisico', ambito:'Riscaldamento e mobilità',
+  descrizione:'Dall\'affondo si portano le braccia tese sopra la testa, allungando tutto il fianco e la parte davanti dell\'anca della gamba dietro.',
+  serveA:'In un solo movimento scalda gambe, anche e spalle: ottimo prima di salti e attacchi.',
+  lavora:{fondamentali:[], muscoli:['flessori','quadricipiti','spalle']}, difficolta:1, giocatori:[1,1], durata:4,
+  dose:{serie:2, ripetizioni:6, lato:true}, materiale:['Corpo libero'], pacchetti:['pk-riscaldamento','pk-casa'], tags:['mobilità anca','allungamento dinamico'],
+  passi:[
+    ['Affondo','Fai un passo lungo in avanti e scendi nell\'affondo, mani sui fianchi.',1],
+    ['Braccia in alto','Porta le braccia tese sopra la testa e spingi il bacino leggermente avanti. Tieni 2 secondi.',2],
+    ['Torna','Riporta le mani sui fianchi e torna in piedi. Poi l\'altra gamba.',3]],
+  attenzione:['Il ginocchio davanti resta sopra la caviglia.','Quando alzi le braccia, non inarcare la schiena: allunga verso l\'alto.','Movimento fluido, senza rimbalzi.'],
+  errori:[['La schiena si inarca quando salgono le braccia','Porta l\'ombelico verso la colonna e stringi il gluteo della gamba dietro.'],['Il ginocchio davanti va oltre la punta','Allunga il passo.']],
+  varianti:{facile:'Mani appoggiate su una sedia di fianco.', difficile:'Aggiungi una piccola rotazione del busto verso la gamba davanti.'},
+  anim:corpo('lato', [['mani_fianchi',null,0.3],['affondo_giu',1.2,0.3],['affondo_braccia_alto',0.9,1.2],['affondo_giu',0.8,0.2],['mani_fianchi',1.1,0.3]], {ancora:'anN'})});
+
+E({id:'mob-saltelli-aperti', titolo:'Saltelli a gambe aperte', obiettivo:'Fisico', ambito:'Riscaldamento e mobilità',
+  descrizione:'Saltelli leggeri sul posto aprendo gambe e braccia insieme, poi richiudendole. Per chi ha dolori alle ginocchia: senza salto, un passo di lato alla volta.',
+  serveA:'Alza il battito e scalda caviglie e spalle in poco tempo.',
+  lavora:{fondamentali:[], muscoli:['polpacci','spalle','adduttori']}, difficolta:1, giocatori:[1,1], durata:2,
+  dose:{serie:2, tempo:30, recupero:30}, materiale:['Corpo libero'], pacchetti:['pk-riscaldamento','pk-casa'], tags:['attivazione','jumping jack'],
+  passi:[
+    ['Chiuso','In piedi, piedi uniti, braccia lungo i fianchi.',0],
+    ['Aperto','Con un saltello apri le gambe e porta le braccia sopra la testa.',1],
+    ['Di nuovo chiuso','Con un altro saltello torna chiuso. Avanti per 30 secondi.',0]],
+  attenzione:['Atterra sugli avampiedi, morbido.','Saltelli bassi: non serve saltare in alto.','Ritmo regolare.'],
+  errori:[['Si atterra sui talloni','Resta sulle punte e piega appena le ginocchia a ogni appoggio.'],['Le braccia non arrivano in alto','Rallenta il ritmo: braccia e gambe si aprono insieme.']],
+  varianti:{facile:'Senza salto: un passo laterale alternato e braccia in alto.', difficile:'Più veloce, oppure con un mezzo squat quando apri.'},
+  anim:corpo('fronte', [['f_jack_chiuso',null,0.05],['f_jack_aperto',0.32,0.05]], {})});
+ES[ES.length-1].anim.fotogrammi[0].ritorno=0.32;
+
+E({id:'gam-step-up', titolo:'Salita sul gradino', obiettivo:'Fisico', ambito:'Gambe',
+  descrizione:'Si sale su un gradino stabile spingendo con la gamba che è sopra, si arriva in piedi e si scende piano con la stessa gamba che è salita per ultima.',
+  serveA:'Forza di una gamba alla volta, molto vicina al gesto della rincorsa e dello stacco.',
+  lavora:{fondamentali:[], muscoli:['quadricipiti','glutei']}, difficolta:2, giocatori:[1,1], durata:6,
+  dose:{serie:3, ripetizioni:8, recupero:60, lato:true}, materiale:['Gradino'], materialeNote:'un gradino o una panca stabile, alta 20-40 cm', pacchetti:['pk-over45','pk-casa'], tags:['step','una gamba','ginocchio'],
+  passi:[
+    ['Piede sul gradino','Appoggia tutto il piede sul gradino.',0],
+    ['Sali','Spingi con il tallone del piede sopra e sali senza darti la spinta con la gamba a terra.',1],
+    ['Scendi','Scendi piano, appoggiando prima l\'altro piede. Fai tutte le ripetizioni, poi cambia gamba.',2]],
+  attenzione:['Spinta della gamba sopra: quella a terra non aiuta.','Il ginocchio resta in linea con il piede, non va verso l\'interno.','Discesa lenta e controllata.'],
+  errori:[['Ci si dà la spinta con il piede a terra','Solleva la punta del piede a terra prima di salire: deve lavorare solo l\'altra gamba.'],['Il ginocchio va verso l\'interno','Gradino più basso e ginocchio spinto verso il mignolo.']],
+  varianti:{facile:'Gradino basso, una mano al muro.', difficile:'Gradino più alto o un pallone tenuto davanti al petto.'},
+  anim:corpo('lato', [['step_davanti',null,0.4],['step_sopra',1.1,0.6],['step_davanti',1.2,0.3]], {attrezzi:[{tipo:'gradino', x:112, w:56, h:22}]})});
+
+E({id:'gam-stacco-una-gamba', titolo:'Stacco su una gamba', obiettivo:'Fisico', ambito:'Gambe',
+  descrizione:'In equilibrio su una gamba, si porta il busto in avanti mentre l\'altra gamba va indietro tesa, fino a quasi una linea orizzontale. Poi si torna su.',
+  serveA:'Rinforza femorali e glutei e allena l\'equilibrio: protegge il ginocchio negli atterraggi su una gamba.',
+  lavora:{fondamentali:[], muscoli:['femorali','glutei','lombari']}, difficolta:3, giocatori:[1,1], durata:6,
+  dose:{serie:3, ripetizioni:8, recupero:60, lato:true}, materiale:['Corpo libero'], pacchetti:['pk-over45','pk-casa'], tags:['femorali','equilibrio','stacco rumeno'],
+  passi:[
+    ['Su una gamba','In piedi su una gamba, ginocchio appena sbloccato.',0],
+    ['Busto avanti','Porta il busto avanti e la gamba libera indietro, come un\'altalena: schiena dritta, braccia verso terra.',1],
+    ['Torna su','Spingi il bacino avanti e torna in piedi stringendo il gluteo.',2]],
+  attenzione:['Schiena dritta dalla testa al tallone della gamba dietro.','Il bacino resta orizzontale: non ruota verso l\'alto.','Scendi solo fin dove mantieni l\'equilibrio.'],
+  errori:[['La schiena si arrotonda','Scendi meno e pensa a portare il bacino indietro, non le mani verso terra.'],['Si perde l\'equilibrio','Appoggia una mano al muro, oppure tocca terra con la punta del piede dietro.']],
+  varianti:{facile:'Con una mano al muro o la punta del piede dietro appoggiata.', difficile:'Con un pallone o un peso leggero in mano.'},
+  anim:corpo('lato', [['in_piedi_una_gamba',null,0.4],['stacco_una_gamba',1.3,0.6],['in_piedi_una_gamba',1.2,0.3]], {ancora:'anN'})});
+
+E({id:'core-crunch', titolo:'Crunch a ginocchia piegate', obiettivo:'Fisico', ambito:'Core',
+  descrizione:'Da supini con le ginocchia piegate si sollevano solo testa e spalle, portando le mani verso le ginocchia, poi si torna giù lentamente.',
+  serveA:'Addominali alti, senza sforzare la zona lombare.',
+  lavora:{fondamentali:[], muscoli:['addome']}, difficolta:1, giocatori:[1,1], durata:4,
+  dose:{serie:3, ripetizioni:12, recupero:30}, materiale:['Tappetino'], pacchetti:['pk-over45','pk-casa'], tags:['addominali'],
+  passi:[
+    ['Giù','Supino, ginocchia piegate, piedi a terra, braccia tese verso le ginocchia.',0],
+    ['Su','Espira e solleva testa e spalle dal tappetino. La zona lombare resta appoggiata.',1],
+    ['Giù piano','Torna giù in 2 secondi.',2]],
+  attenzione:['Si sollevano solo testa e spalle, la schiena bassa resta a terra.','Sguardo verso le ginocchia, mento staccato dal petto.','Espira salendo.'],
+  errori:[['Si tira il collo con le mani','Tieni le braccia tese verso le ginocchia: è la pancia che solleva.'],['Si sale di slancio','Rallenta: sali in un secondo, scendi in due.']],
+  varianti:{facile:'Mani appoggiate sulle cosce, risalita piccola.', difficile:'Braccia incrociate sul petto e 2 secondi fermi in alto.'},
+  anim:corpo('lato', [['crunch_giu',null,0.4],['crunch_su',0.9,0.7],['crunch_giu',1.3,0.2]], {ancora:'anN', attrezzi:[{tipo:'tappetino', x:20, w:160}]})});
+
+E({id:'core-superman', titolo:'Superman a terra', obiettivo:'Fisico', ambito:'Core',
+  descrizione:'Da proni, con le braccia tese in avanti, si sollevano insieme di pochi centimetri braccia, petto e gambe, e si tiene la posizione per 3 secondi.',
+  serveA:'Rinforza i muscoli della schiena che tengono il busto dritto in battuta e in attacco.',
+  lavora:{fondamentali:[], muscoli:['lombari','schiena','glutei']}, difficolta:2, giocatori:[1,1], durata:4,
+  dose:{serie:3, ripetizioni:8, recupero:30}, materiale:['Tappetino'], pacchetti:['pk-over45','pk-casa'], tags:['schiena','postura'],
+  passi:[
+    ['Proni','A pancia in giù, braccia tese in avanti, gambe tese.',0],
+    ['Su','Solleva insieme braccia, petto e gambe di pochi centimetri. Tieni 3 secondi.',1],
+    ['Giù','Torna giù lentamente.',2]],
+  attenzione:['Bastano pochi centimetri: non serve inarcarsi.','Sguardo verso il tappetino, collo in linea.','Glutei stretti mentre sollevi le gambe.'],
+  errori:[['Fastidio alla zona lombare','Solleva meno, oppure solo braccia o solo gambe.'],['La testa va all\'indietro','Guarda il pavimento a una spanna dal naso.']],
+  varianti:{facile:'Solleva un braccio e la gamba opposta, alternando.', difficile:'Tieni 5 secondi e muovi le braccia da avanti a lato.'},
+  anim:corpo('lato', [['superman_giu',null,0.4],['superman_su',0.9,1.4],['superman_giu',1.0,0.2]], {ancora:'hip', attrezzi:[{tipo:'tappetino', x:10, w:180}]})});
+
+E({id:'spa-ytw', titolo:'Y, T e W con elastico', obiettivo:'Fisico', ambito:'Spalle e braccia',
+  descrizione:'Con un elastico leggero tenuto tra le mani, si portano le braccia a formare tre lettere: Y in alto, T aperte di lato, W con i gomiti piegati.',
+  serveA:'Rinforza i muscoli piccoli intorno alle scapole, che proteggono la spalla di chi batte e attacca.',
+  lavora:{fondamentali:['Battuta','Attacco'], muscoli:['cuffia','schiena','spalle']}, difficolta:2, giocatori:[1,1], durata:5,
+  dose:{serie:2, ripetizioni:8, recupero:45}, materiale:['Elastico'], materialeNote:'elastico lungo e leggero', pacchetti:['pk-over45','pk-casa','pk-recupero'], tags:['scapole','prevenzione spalla'],
+  passi:[
+    ['Y','Braccia tese in alto a formare una Y, elastico in leggera tensione.',0],
+    ['T','Abbassa le braccia di lato, all\'altezza delle spalle, aprendo l\'elastico: una T.',1],
+    ['W','Piega i gomiti e portali verso i fianchi, stringendo le scapole: una W. Poi di nuovo Y.',2]],
+  attenzione:['Spalle basse in tutte le posizioni.','Movimento lento: 2 secondi per passare da una lettera all\'altra.','Elastico leggero: si lavora sul controllo, non sulla forza.'],
+  errori:[['Le spalle salgono verso le orecchie','Elastico più leggero; pensa a portare le scapole in basso e indietro.'],['Si inarca la schiena nella Y','Addome contratto; alza le braccia solo fin dove la schiena resta neutra.']],
+  varianti:{facile:'Senza elastico.', difficile:'Da proni a terra o con il busto inclinato in avanti.'},
+  anim:corpo('fronte', [['f_y',null,0.6],['f_braccia_largo',1.0,0.6],['f_w',1.0,0.6]], {attrezzi:[{tipo:'elastico', da:'haN', a:'haF'}]})});
+
+E({id:'spa-gesto-elastico', titolo:'Gesto dell\'attacco con elastico', obiettivo:'Fisico', ambito:'Spalle e braccia',
+  descrizione:'Con un elastico fissato in alto dietro di sé, si ripete lentamente il movimento del braccio dell\'attacco: caricamento, colpo in alto, chiusura in avanti.',
+  serveA:'Rinforza la spalla proprio nel gesto che fa in partita, con un carico leggero e controllato.',
+  lavora:{fondamentali:['Attacco','Battuta'], muscoli:['spalle','petto','tricipiti']}, difficolta:2, giocatori:[1,1], durata:5,
+  dose:{serie:3, ripetizioni:10, recupero:45, lato:true}, materiale:['Elastico','Muro o spalliera'], materialeNote:'elastico leggero fissato in alto a una spalliera', pacchetti:['pk-over45'], tags:['spalla','attacco','battuta'],
+  passi:[
+    ['Caricamento','Di spalle alla spalliera, gomito alto e mano dietro la testa, elastico teso.',0],
+    ['Colpo','Distendi il braccio verso l\'alto e in avanti, come quando colpisci la palla.',1],
+    ['Chiusura','Accompagna il braccio in avanti e in basso, poi torna lentamente al caricamento.',2]],
+  attenzione:['Gomito alto nel caricamento, sopra la spalla.','Il colpo parte dal busto: la spalla segue.','Ritorno lento, frenando l\'elastico.'],
+  errori:[['Il gomito resta basso','Prima del colpo porta il gomito all\'altezza dell\'orecchio.'],['Si fa solo con il braccio','Ruota leggermente il busto in avanti mentre distendi il braccio.']],
+  varianti:{facile:'Senza elastico, solo il gesto lento.', difficile:'Elastico più duro, sempre lento nel ritorno.'},
+  anim:corpo('lato', [['attacco_carica',null,0.4],['attacco_colpo',0.6,0.3],['attacco_fine',0.6,0.4],['attacco_carica',1.2,0.2]], {ancora:'anN', attrezzi:[{tipo:'muro', x:52},{tipo:'elastico', da:'haN', a:[58,40]}]})});
+
+E({id:'sal-saltelli-laterali', titolo:'Saltelli laterali sopra una linea', obiettivo:'Fisico', ambito:'Salto e agilità',
+  descrizione:'Piedi uniti, si salta da una parte all\'altra di una linea a terra, rapidi e bassi.',
+  serveA:'Rapidità dei piedi e reattività delle caviglie, utili negli spostamenti a muro e in difesa.',
+  lavora:{fondamentali:['Muro','Difesa'], muscoli:['polpacci','quadricipiti']}, difficolta:2, giocatori:[1,1], durata:4,
+  dose:{serie:3, tempo:20, recupero:40}, materiale:['Corpo libero'], pacchetti:['pk-over45'], tags:['rapidità','caviglie','pliometria leggera'],
+  passi:[
+    ['Posizione','Piedi uniti accanto a una linea, ginocchia leggermente piegate.',0],
+    ['Salta di lato','Saltello basso oltre la linea, atterrando sugli avampiedi.',1],
+    ['Torna','Subito un saltello per tornare dall\'altra parte. 20 secondi.',2]],
+  attenzione:['Saltelli bassi e veloci, contatto breve con il terreno.','Il busto resta fermo sopra la linea: si muovono le gambe.','Atterraggio morbido sugli avampiedi.'],
+  errori:[['Si salta troppo alto e lento','Salta appena quanto basta per superare la linea: conta la rapidità.'],['Si atterra rigidi','Ginocchia leggermente piegate a ogni appoggio.']],
+  varianti:{facile:'Passo laterale veloce invece del salto.', difficile:'Su un piede solo (solo senza dolori a caviglie e ginocchia).'},
+  anim:corpo('fronte', [['f_semisquat_stretto',null,0.05,{x:84}],['f_salto_laterale',0.22,0.0,{x:100}],['f_semisquat_stretto',0.22,0.1,{x:116}],['f_salto_laterale',0.22,0.0,{x:100}]], {attrezzi:[{tipo:'cono', x:100}]})});
+ES[ES.length-1].anim.fotogrammi[0].ritorno=0.22;
+
+E({id:'sal-rincorsa', titolo:'Rincorsa e stacco d\'attacco senza palla', obiettivo:'Fisico', ambito:'Salto e agilità',
+  descrizione:'Si ripete la rincorsa d\'attacco a tre passi: passo, ultimo passo lungo con le braccia indietro, stacco a due piedi e atterraggio morbido.',
+  serveA:'Costruisce una rincorsa sempre uguale e un atterraggio sicuro, prima di aggiungere la palla.',
+  lavora:{fondamentali:['Attacco'], muscoli:['quadricipiti','glutei','polpacci']}, difficolta:3, giocatori:[1,1], durata:6,
+  dose:{serie:3, ripetizioni:5, recupero:90}, materiale:['Corpo libero'], pacchetti:['pk-over45'], tags:['rincorsa','stacco','attacco'],
+  passi:[
+    ['Primo passo','Un passo di avvio, per chi colpisce di destro con il piede sinistro.',1],
+    ['Ultimo passo','Passo lungo e veloce, il tallone frena, le braccia vanno indietro.',2],
+    ['Stacco','Spingi con le due gambe e lancia le braccia in alto.',3],
+    ['Atterraggio','Atterra su tutti e due i piedi, ginocchia piegate.',4]],
+  attenzione:['L\'ultimo passo è il più lungo e il più veloce.','Le braccia vanno indietro durante l\'ultimo passo e salgono nello stacco.','Atterra a due piedi, vicino al punto di stacco.'],
+  errori:[['Si salta in avanti e non in alto','Ultimo passo con il tallone che frena: trasforma la corsa in salto verso l\'alto.'],['Braccia ferme durante la rincorsa','Portale indietro nell\'ultimo passo: danno gran parte della spinta.']],
+  varianti:{facile:'Solo gli ultimi due passi e un salto basso.', difficile:'Rincorsa a quattro passi, poi un attacco su palla lanciata.'},
+  note:'Da fare dopo un buon riscaldamento. Poche ripetizioni, ben fatte.',
+  anim:corpo('lato', [['in_piedi',null,0.4,{x:40}],['passo_avanti',0.45,0.0,{x:66}],['carica_salto',0.4,0.05,{x:96}],['salto',0.35,0.05,{x:108}],['atterraggio',0.35,0.9,{x:112}]], {})});
+ES[ES.length-1].anim.fotogrammi[0].ritorno=0.6;
+
+/* =================================================================== AGGIUNTE 1.1 · RECUPERO */
+E({id:'rec-ginocchio-gamba-tesa', titolo:'Sollevamento della gamba tesa da supini', obiettivo:'Recupero', ambito:'Ginocchio',
+  descrizione:'Da supini, con una gamba piegata, si solleva l\'altra tesa fino all\'altezza del ginocchio opposto e si riabbassa lentamente.',
+  serveA:'Rinforza il quadricipite senza piegare il ginocchio: si usa nelle prime fasi del recupero.',
+  lavora:{fondamentali:[], muscoli:['quadricipiti','flessori']}, difficolta:1, giocatori:[1,1], durata:5,
+  dose:{serie:3, ripetizioni:10, recupero:45, lato:true}, materiale:['Tappetino'], pacchetti:['pk-recupero','pk-casa'], tags:['ginocchio','fase iniziale','quadricipite'],
+  passi:[
+    ['Posizione','Supino, una gamba piegata con il piede a terra, l\'altra tesa con la punta del piede verso di te.',0],
+    ['Su','Contrai la coscia della gamba tesa e sollevala fino all\'altezza dell\'altro ginocchio.',1],
+    ['Giù','Riabbassala lentamente, senza appoggiarla del tutto.',2]],
+  attenzione:['La gamba resta tesa per tutto il movimento: prima contrai la coscia, poi sollevi.','Schiena appoggiata al tappetino.','Movimento lento, senza slancio.'],
+  errori:[['Il ginocchio si piega durante la salita','Contrai bene la coscia prima di sollevare; sali meno.'],['La schiena si inarca','Tieni piegata l\'altra gamba e porta l\'ombelico verso la colonna.']],
+  varianti:{facile:'Solleva di pochi centimetri.', difficile:'Con un peso leggero alla caviglia, se il fisioterapista è d\'accordo.'},
+  anim:corpo('lato', [['supino_gamba_giu',null,0.4],['supino_gamba_su',1.2,0.8],['supino_gamba_giu',1.4,0.2]], {ancora:'hip', attrezzi:[{tipo:'tappetino', x:20, w:170}]})});
+
+E({id:'rec-ginocchio-elastico', titolo:'Estensione del ginocchio in piedi con elastico', obiettivo:'Recupero', ambito:'Ginocchio',
+  descrizione:'Un elastico fissato davanti passa dietro al ginocchio: da ginocchio appena piegato si distende la gamba spingendo indietro contro l\'elastico.',
+  serveA:'Recupera gli ultimi gradi di estensione del ginocchio, spesso i più difficili dopo un infortunio.',
+  lavora:{fondamentali:[], muscoli:['quadricipiti']}, difficolta:1, giocatori:[1,1], durata:5,
+  dose:{serie:3, ripetizioni:12, recupero:30, lato:true}, materiale:['Elastico','Muro o spalliera'], pacchetti:['pk-recupero'], tags:['ginocchio','estensione','TKE'],
+  passi:[
+    ['Posizione','Elastico fissato davanti a te all\'altezza del ginocchio, passato dietro il ginocchio da trattare. Ginocchio leggermente piegato.',0],
+    ['Distendi','Spingi il ginocchio indietro fino a gamba tesa, contraendo la coscia. Tieni 2 secondi.',1],
+    ['Rilascia','Torna lentamente con il ginocchio appena piegato.',2]],
+  attenzione:['Il piede resta fermo a terra.','Distendi fino in fondo senza scattare.','Il peso è sulla gamba che lavora.'],
+  errori:[['Il bacino va indietro invece del ginocchio','Tieni il busto dritto: si muove solo il ginocchio.'],['Si blocca il ginocchio con uno scatto','Arriva alla gamba tesa lentamente e tieni.']],
+  varianti:{facile:'Elastico leggero e piccolo movimento.', difficile:'Su un cuscino morbido per aggiungere equilibrio.'},
+  anim:corpo('lato', [['ginocchio_flesso',null,0.4],['ginocchio_teso',0.9,1.0],['ginocchio_flesso',1.1,0.3]], {ancora:'anN', attrezzi:[{tipo:'muro', x:172},{tipo:'elastico', da:'knN', a:[172,150]}]})});
+
+E({id:'rec-spalla-rotazione-esterna', titolo:'Rotazione esterna della spalla con elastico', obiettivo:'Recupero', ambito:'Spalla',
+  descrizione:'Gomiti attaccati ai fianchi e piegati a 90 gradi, elastico tra le mani: si aprono gli avambracci verso l\'esterno, senza staccare i gomiti.',
+  serveA:'Rinforza la cuffia dei rotatori, che stabilizza la spalla di chi batte e attacca.',
+  lavora:{fondamentali:['Battuta','Attacco'], muscoli:['cuffia','schiena']}, difficolta:1, giocatori:[1,1], durata:5,
+  dose:{serie:3, ripetizioni:12, recupero:30}, materiale:['Elastico'], materialeNote:'elastico leggero', pacchetti:['pk-recupero','pk-over45','pk-casa'], tags:['cuffia dei rotatori','prevenzione spalla'],
+  passi:[
+    ['Posizione','In piedi, gomiti ai fianchi piegati a 90 gradi, mani davanti alla pancia con l\'elastico.',0],
+    ['Apri','Apri gli avambracci verso l\'esterno tenendo i gomiti attaccati ai fianchi. Tieni 1 secondo.',1],
+    ['Chiudi','Torna lentamente con le mani davanti.',2]],
+  attenzione:['I gomiti non si staccano dai fianchi: aiutati con un asciugamano arrotolato.','Polsi dritti.','Spalle basse e scapole leggermente indietro.'],
+  errori:[['I gomiti si allontanano dai fianchi','Metti un asciugamano tra gomito e fianco e tienilo stretto.'],['Si inarca la schiena per aprire di più','Apri meno: conta che lavori la spalla.']],
+  varianti:{facile:'Un braccio alla volta, con l\'elastico fissato a una maniglia.', difficile:'Elastico più duro, oppure con il braccio alzato di lato a 90 gradi.'},
+  anim:corpo('fronte', [['f_rot_dentro',null,0.4],['f_rot_fuori',1.0,0.7],['f_rot_dentro',1.2,0.2]], {attrezzi:[{tipo:'elastico', da:'haN', a:'haF'}]})});
+
+E({id:'rec-spalla-scivolamento-frontale', titolo:'Scivolamento delle braccia sul muro di fronte', obiettivo:'Recupero', ambito:'Spalla',
+  descrizione:'Di fronte al muro, con gli avambracci appoggiati, si fanno scivolare le braccia verso l\'alto e si torna giù lentamente.',
+  serveA:'Recupera il movimento della spalla verso l\'alto, con il muro che guida e sostiene.',
+  lavora:{fondamentali:[], muscoli:['spalle','cuffia']}, difficolta:1, giocatori:[1,1], durata:4,
+  dose:{serie:3, ripetizioni:10, recupero:30}, materiale:['Muro o spalliera'], pacchetti:['pk-recupero','pk-casa'], tags:['mobilità spalla','fase iniziale'],
+  passi:[
+    ['Posizione','Di fronte al muro, avambracci appoggiati, gomiti all\'altezza delle spalle.',0],
+    ['Scivola su','Fai scivolare le braccia verso l\'alto, avvicinando un poco il corpo al muro.',1],
+    ['Torna giù','Scendi lentamente fino alla posizione di partenza.',2]],
+  attenzione:['Sali solo fin dove non senti dolore.','Spalle basse, lontane dalle orecchie.','Respira normalmente.'],
+  errori:[['Le spalle salgono verso le orecchie','Pensa a portare le scapole verso il basso mentre le braccia salgono.'],['Si inarca la schiena per arrivare più in alto','Ferma le braccia prima: l\'ampiezza crescerà con il tempo.']],
+  varianti:{facile:'Una sola mano alla volta, piccoli movimenti.', difficile:'Staccare le mani dal muro per 2 secondi in alto.'},
+  anim:corpo('lato', [['muro_mani_giu',null,0.4],['muro_mani_su',1.4,0.8],['muro_mani_giu',1.4,0.2]], {attrezzi:[{tipo:'muro', x:141}]})});
+
+E({id:'rec-caviglia-alfabeto', titolo:'Alfabeto con la caviglia', obiettivo:'Recupero', ambito:'Caviglia',
+  descrizione:'Seduti, con la gamba tesa e il piede sollevato, si «scrivono» nell\'aria le lettere dell\'alfabeto con la punta del piede.',
+  serveA:'Muove la caviglia in tutte le direzioni senza carico: utile nei primi giorni dopo una distorsione.',
+  lavora:{fondamentali:[], muscoli:['polpacci']}, difficolta:1, giocatori:[1,1], durata:4,
+  dose:{serie:2, ripetizioni:1, lato:true}, materiale:['Sedia'], pacchetti:['pk-recupero','pk-casa'], tags:['caviglia','mobilità','distorsione'],
+  passi:[
+    ['Posizione','Seduto, gamba tesa, il piede da trattare sollevato da terra.',0],
+    ['Scrivi','Con la punta del piede disegna le lettere dalla A alla Z, grandi e lente.',1],
+    ['Ripeti','Riposa e ripeti, oppure cambia piede.',2]],
+  attenzione:['Si muove solo la caviglia, la gamba resta ferma.','Lettere grandi, movimenti lenti.','Nessun dolore oltre 3 su 10.'],
+  errori:[['Si muove tutta la gamba','Appoggia il polpaccio su un cuscino o su un\'altra sedia.'],['Le lettere sono piccole','Cerca il movimento più ampio possibile senza dolore.']],
+  varianti:{facile:'Solo punta su e punta giù.', difficile:'Con un elastico leggero intorno all\'avampiede.'},
+  anim:corpo('lato', [['seduto_punta_su',null,0.3],['seduto_punta_giu',1.0,0.3],['seduto_gamba_tesa',0.7,0.2]], {attrezzi:[{tipo:'sedia'}]})});
+
+E({id:'rec-caviglia-equilibrio-palla', titolo:'Equilibrio su una gamba con la palla', obiettivo:'Recupero', ambito:'Caviglia',
+  descrizione:'In equilibrio su una gamba, si passa la palla da sotto a sopra la testa, oppure si fanno passaggi con un compagno.',
+  serveA:'Allena la caviglia a reagire mentre l\'attenzione è sulla palla, come in partita.',
+  lavora:{fondamentali:[], muscoli:['polpacci','glutei','addome']}, difficolta:2, giocatori:[1,2], durata:5,
+  dose:{serie:3, tempo:30, recupero:30, lato:true}, materiale:['Palloni'], pacchetti:['pk-recupero','pk-over45'], tags:['caviglia','propriocezione','ritorno al campo'],
+  passi:[
+    ['Su una gamba','In equilibrio su una gamba, palla tenuta davanti alla pancia.',0],
+    ['Palla in alto','Porta lentamente la palla sopra la testa, mantenendo l\'equilibrio.',1],
+    ['Giù','Riporta la palla davanti alla pancia. 30 secondi, poi cambia gamba.',2]],
+  attenzione:['Ginocchio della gamba d\'appoggio appena piegato.','Bacino orizzontale.','Muovi la palla lentamente.'],
+  errori:[['Il piede d\'appoggio si muove','Rallenta il movimento della palla e guarda un punto fisso.'],['Il bacino cade dal lato della gamba alzata','Stringi il gluteo della gamba d\'appoggio.']],
+  varianti:{facile:'Palla ferma davanti al petto.', difficile:'Passaggi a due mani con un compagno a 3 metri.'},
+  anim:corpo('fronte', [['f_equilibrio',null,0.4,{aN:[16,-78], aF:[16,-78]}],['f_equilibrio_palla',1.2,0.6],['f_equilibrio',1.2,0.3,{aN:[16,-78], aF:[16,-78]}]], {ancora:'anN', attrezzi:[{tipo:'palla', su:'mani', sopra:true}]})});
+
+E({id:'rec-schiena-bambino', titolo:'Posizione del bambino', obiettivo:'Recupero', ambito:'Schiena',
+  descrizione:'Dalla quadrupedia ci si siede all\'indietro sui talloni, con le braccia tese in avanti a terra e la fronte vicino al tappetino.',
+  serveA:'Allunga dolcemente la schiena e i fianchi: utile a fine allenamento o quando la schiena è rigida.',
+  lavora:{fondamentali:[], muscoli:['lombari','schiena']}, difficolta:1, giocatori:[1,1], durata:3,
+  dose:{serie:2, tempo:30}, materiale:['Tappetino'], pacchetti:['pk-recupero','pk-casa'], tags:['schiena','allungamento','defaticamento'],
+  passi:[
+    ['Quadrupedia','Mani sotto le spalle, ginocchia sotto le anche.',0],
+    ['Siediti indietro','Porta il bacino verso i talloni lasciando le mani dove sono. Fronte verso il tappetino.',1],
+    ['Respira','Resta 30 secondi respirando lentamente, poi torna in quadrupedia.',2]],
+  attenzione:['Le mani restano ferme: l\'allungamento viene dal bacino che va indietro.','Respira con la pancia.','Se le ginocchia fanno male, metti un cuscino dietro le ginocchia.'],
+  errori:[['Fastidio alle ginocchia','Allarga un poco le ginocchia o metti un cuscino tra talloni e glutei.'],['Le spalle sono tese','Lascia scendere il petto verso il tappetino e rilassa il collo.']],
+  varianti:{facile:'Non arrivare fino ai talloni.', difficile:'Sposta le mani verso destra e verso sinistra per allungare i fianchi.'},
+  anim:corpo('lato', [['quadrupedia',null,0.4],['bambino',1.6,1.8],['quadrupedia',1.4,0.3]], {ancora:'haN', attrezzi:[{tipo:'tappetino', x:20, w:170}]})});
+
+E({id:'rec-schiena-ginocchia-petto', titolo:'Ginocchia al petto', obiettivo:'Recupero', ambito:'Schiena',
+  descrizione:'Da supini si portano le ginocchia verso il petto, aiutandosi con le mani, e si tiene la posizione respirando.',
+  serveA:'Rilassa la zona lombare dopo l\'allenamento o una lunga giornata seduti.',
+  lavora:{fondamentali:[], muscoli:['lombari','glutei']}, difficolta:1, giocatori:[1,1], durata:3,
+  dose:{serie:3, tempo:20, recupero:15}, materiale:['Tappetino'], pacchetti:['pk-recupero','pk-casa'], tags:['schiena','rilassamento','lombare'],
+  passi:[
+    ['Supino','Supino con le ginocchia piegate e i piedi a terra.',0],
+    ['Ginocchia al petto','Porta le ginocchia verso il petto e tienile con le mani. Resta 20 secondi.',1],
+    ['Torna','Riporta i piedi a terra uno alla volta.',2]],
+  attenzione:['Testa e spalle restano appoggiate.','Tira le ginocchia piano, senza forzare.','Respira lentamente.'],
+  errori:[['La testa si solleva','Appoggia la testa e rilassa il collo; se serve tieni le mani dietro le cosce.'],['Si tira con forza','Basta un leggero allungamento: nessun dolore.']],
+  varianti:{facile:'Un ginocchio alla volta.', difficile:'Piccole oscillazioni a destra e a sinistra.'},
+  anim:corpo('lato', [['supino_ginocchia',null,0.4],['ginocchia_petto',1.4,1.6],['supino_ginocchia',1.4,0.2]], {ancora:'hip', attrezzi:[{tipo:'tappetino', x:20, w:170}]})});
+
 window.VSE_CATALOGO = { versione: 1, pacchetti: PK, esercizi: ES };
 })();

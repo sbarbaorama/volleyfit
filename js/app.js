@@ -1,7 +1,7 @@
 /* VolleyFit – interfaccia */
 (function(){
 'use strict';
-const VERSIONE = '1.0.0';
+const VERSIONE = '1.1.0';
 const $ = (s,r) => (r||document).querySelector(s);
 const $$ = (s,r) => Array.from((r||document).querySelectorAll(s));
 const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
