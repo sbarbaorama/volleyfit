@@ -30,7 +30,7 @@ function evidenziaDa(muscoli){
 function nuovo(preset){
   const ob = preset.obiettivo && VSE.AMBITI[preset.obiettivo] ? preset.obiettivo : 'Tecnica';
   const fis = ob==='Fisico'||ob==='Recupero';
-  return {id:null, titolo:'', obiettivo:ob, ambito:VSE.AMBITI[ob][0], descrizione:'', serveA:'',
+  return {id:null, titolo:'', obiettivo:ob, ambito:VSE.AMBITI[ob][0], descrizione:'', serveA:'', prepara:'',
     lavora:{fondamentali: fis?[]:[VSE.AMBITI[ob][0]].filter(a=>VSE.FONDAMENTALI.includes(a)), muscoli:[]},
     difficolta:2, giocatori: fis?[1,1]:[2,4], durata: fis?5:10,
     dose: fis?{serie:3, ripetizioni:10, tempo:'', recupero:60, lato:false}:{},
@@ -93,6 +93,7 @@ function monta(root, rec, opts){
           <div class="chips" style="flex:1;min-width:180px">${VSE.MUSCOLI.map(m=>`<button type="button" class="chip" data-e="musc" data-v="${m.id}" aria-pressed="${R.lavora.muscoli.includes(m.id)}">${R.lavora.muscoli[0]===m.id?'★ ':''}${esc(m.nome)}</button>`).join('')}</div>
         </div></div>
       <label class="f">A cosa serve<input type="text" name="serveA" value="${esc(R.serveA)}" placeholder="Es. spinta nel salto a muro, stabilità del ginocchio"></label>
+      <label class="f">Prepara a <span class="muted" style="font-weight:400">(solo per gli esercizi propedeutici)</span><input type="text" name="prepara" value="${esc(R.prepara||'')}" placeholder="Es. palleggio: posizione delle mani"></label>
       <div><div class="sub">Difficoltà</div><div class="seg" role="group" aria-label="Difficoltà">${[1,2,3,4,5].map(n=>`<button type="button" data-e="diff" data-v="${n}" aria-pressed="${+R.difficolta===n}">${n}</button>`).join('')}</div></div>
       <div class="num">
         <label class="f">Giocatori da<input type="number" name="g0" min="1" max="24" value="${esc(R.giocatori[0]||'')}"></label>
@@ -331,7 +332,7 @@ function monta(root, rec, opts){
     const t=ev.target; const e=t.dataset.e, i=+t.dataset.i, n=t.name;
     const num = v => v===''?'':(+v);
     if(n){
-      if(['titolo','descrizione','serveA','materialeNote','note'].includes(n)) R[n]=t.value;
+      if(['titolo','descrizione','serveA','prepara','materialeNote','note'].includes(n)) R[n]=t.value;
       else if(n==='g0') R.giocatori[0]=num(t.value); else if(n==='g1') R.giocatori[1]=num(t.value);
       else if(n==='durata') R.durata=num(t.value);
       else if(['serie','ripetizioni','tempo','recupero'].includes(n)) R.dose[n]=num(t.value);

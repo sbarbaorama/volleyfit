@@ -1,7 +1,7 @@
 /* VolleyFit – interfaccia */
 (function(){
 'use strict';
-const VERSIONE = '1.1.0';
+const VERSIONE = '1.3.0';
 const $ = (s,r) => (r||document).querySelector(s);
 const $$ = (s,r) => Array.from((r||document).querySelectorAll(s));
 const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -96,7 +96,7 @@ function fisico(e){ return e.obiettivo==='Fisico' || e.obiettivo==='Recupero'; }
 function testoRicerca(e){
   if(e._rt) return e._rt;
   const l=e.lavora||{};
-  return norm([e.titolo, e.descrizione, e.ambito, e.obiettivo, (e.tags||[]).join(' '), (l.fondamentali||[]).join(' '), (l.muscoli||[]).map(m=>VSE.MUSCOLO[m]?VSE.MUSCOLO[m].nome:m).join(' '), (e.materiale||[]).join(' ')].join(' '));
+  return norm([e.titolo, e.descrizione, e.ambito, e.obiettivo, e.prepara||'', e.prepara?'propedeutico principianti':'', (e.tags||[]).join(' '), (l.fondamentali||[]).join(' '), (l.muscoli||[]).map(m=>VSE.MUSCOLO[m]?VSE.MUSCOLO[m].nome:m).join(' '), (e.materiale||[]).join(' ')].join(' '));
 }
 function ordineAmbito(e){
   const oi = VSE.OBIETTIVI.findIndex(o=>o.id===e.obiettivo);
@@ -147,7 +147,7 @@ function cardEsercizio(e){
   return `<article class="ce">
     <div class="th ${campo?'campo':''}">${th}</div>
     ${e._origine!=='catalogo'?`<span class="tag">${e._origine==='mio'?'Mio':'Modificato'}</span>`:''}
-    <div class="bd"><div class="amb ${fisico(e)?'fis':''}">${esc(e.ambito||e.obiettivo||'')}</div>
+    <div class="bd"><div class="amb ${fisico(e)?'fis':''}">${esc(e.ambito||e.obiettivo||'')}${e.prepara?' · propedeutico':''}</div>
       <h3><a href="#/es/${encodeURIComponent(e.id)}">${esc(e.titolo)}</a></h3>
       <div class="mt">${meta.join('<span aria-hidden="true">·</span>')}</div></div>
     <button type="button" class="star" data-a="pref" data-id="${esc(e.id)}" aria-pressed="${pref}" aria-label="${pref?'Togli dai preferiti':'Aggiungi ai preferiti'}">${I('stella',20)}</button>
@@ -293,6 +293,7 @@ function vistaScheda(id){
     </div>
     ${(fondSec.length||ms.length)?`<div class="chips" style="margin-top:10px">${fondSec.map(f=>`<span class="chip soft">${esc(f)}</span>`).join('')}${ms.map((m,i)=>`<span class="chip musc ${fisico(e)&&i===0?'on':''}">${esc(VSE.MUSCOLO[m]?VSE.MUSCOLO[m].nome:m)}</span>`).join('')}</div>`:''}
     ${e.serveA?`<p style="margin:10px 0 0;font-size:14px;color:var(--ink-2)"><b>A cosa serve:</b> ${esc(e.serveA)}</p>`:''}`;
+  const prepHTML = e.prepara ? `<div class="prep">${VSE.iconaAmbito(e.ambito,20)}<span><small>Prepara a</small><b>${esc(e.prepara)}</b></span></div>` : '';
   const info=[];
   info.push(['Difficoltà', difficoltaDots(e.difficolta)+` <span class="muted" style="font-weight:400">${+e.difficolta||'–'} su 5</span>`]);
   const g=giocatoriTesto(e); if(g) info.push(['Giocatori', esc(g)]);
@@ -330,7 +331,7 @@ function vistaScheda(id){
       ${passi.length?`<section class="panel"><h2>Passo per passo</h2><div class="passi" id="passi">${passi.map((p,i)=>`<button type="button" class="passo" data-a="passo" data-f="${stepFrame(p,i)}" data-i="${i}"><span class="n">${i+1}</span><span><b>${esc(p.titolo||('Passo '+(i+1)))}</b><span class="tx">${esc(p.testo||'')}</span></span></button>`).join('')}</div></section>`:''}
     </div>
     <div class="side">
-      <section class="panel"><h2>Su cosa lavora</h2>${lavoraHTML}<div class="info" style="margin-top:12px">${info.map(([k,v])=>`<div><small>${k}</small><b>${v}</b></div>`).join('')}</div></section>
+      <section class="panel"><h2>Su cosa lavora</h2>${prepHTML}${lavoraHTML}<div class="info" style="margin-top:12px">${info.map(([k,v])=>`<div><small>${k}</small><b>${v}</b></div>`).join('')}</div></section>
       ${(e.attenzione||[]).length?`<section class="panel"><h2>Punti di attenzione</h2><ul class="att">${e.attenzione.map(a=>`<li>${I('ok',18)}<span>${esc(a)}</span></li>`).join('')}</ul></section>`:''}
       ${(e.errori||[]).length?`<section class="panel"><h2>Errori e correzioni</h2>${e.errori.map(x=>`<div class="err"><b>${esc(x.errore||x[0]||'')}</b><div class="co">${I('avanti',16)}<span>${esc(x.correzione||x[1]||'')}</span></div></div>`).join('')}</section>`:''}
       ${(e.varianti && (e.varianti.facile||e.varianti.difficile))?`<section class="panel"><h2>Varianti</h2><div class="var">${e.varianti.facile?`<div><small>Più facile</small>${esc(e.varianti.facile)}</div>`:''}${e.varianti.difficile?`<div><small>Più difficile</small>${esc(e.varianti.difficile)}</div>`:''}</div></section>`:''}
@@ -507,7 +508,7 @@ async function esportaVolleysched(lista, nome){
     out.push({
       id:'vse_'+e.id, titolo:e.titolo, fondamentale:fond(e), formazione:formaz(e), durata:e.durata||'', intensita:intens(e.difficolta),
       materiale:(e.materiale||[]).join(', '),
-      organizzazione:[e.descrizione||'', lav.length?'Su cosa lavora: '+lav.join(', ')+'.':'', e.serveA?'A cosa serve: '+e.serveA:''].filter(Boolean).join('\n'),
+      organizzazione:[e.descrizione||'', e.prepara?'Prepara a: '+e.prepara:'', lav.length?'Su cosa lavora: '+lav.join(', ')+'.':'', e.serveA?'A cosa serve: '+e.serveA:''].filter(Boolean).join('\n'),
       svolgimento:(e.passi||[]).map((p,i)=>(i+1)+'. '+(p.titolo?p.titolo+': ':'')+(p.testo||'')).join('\n') + (doseTesto(e)?'\n'+doseTesto(e)+(e.dose&&e.dose.recupero?', recupero '+e.dose.recupero+'″':''):''),
       puntoChiave:(e.attenzione||[]).join('\n'),
       variante:[e.varianti&&e.varianti.facile?'Più facile: '+e.varianti.facile:'', e.varianti&&e.varianti.difficile?'Più difficile: '+e.varianti.difficile:''].filter(Boolean).join('\n'),

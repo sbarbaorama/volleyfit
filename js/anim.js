@@ -114,8 +114,10 @@ function attrezziSVG(list, J, col, livello){
       if(Math.hypot(p1[0]-p2[0],p1[1]-p2[1])<7) s+=`<ellipse cx="${r1(p1[0])}" cy="${r1(p1[1])}" rx="7" ry="4.5" fill="none" stroke="${col.elastico}" stroke-width="3.2"/>`;
       else s+=`<line x1="${r1(p1[0])}" y1="${r1(p1[1])}" x2="${r1(p2[0])}" y2="${r1(p2[1])}" stroke="${col.elastico}" stroke-width="3.2" stroke-linecap="round"/>`;
     } else if(a.tipo==='palla'){
-      const p=pt(a.su||a.pos||'mani'); const rr=a.r||9;
-      s+=`<circle cx="${r1(p[0]+(a.dx||0))}" cy="${r1(p[1]+(a.dy||0))}" r="${rr}" fill="${col.palla}" stroke="${col.inchiostro}" stroke-width="1.5"/><path d="M${r1(p[0]+(a.dx||0)-rr+2)} ${r1(p[1]+(a.dy||0)-2)}q${rr-2} 5 ${2*rr-4} 0" fill="none" stroke="${col.inchiostro}" stroke-width="1" opacity=".6"/>`;
+      if(a.nascosta) continue;
+      const p0=a._xy ? a._xy : pt(a.su||a.pos||'mani'); const rr=a.r||9;
+      const p = a._xy ? p0 : [p0[0]+(a.dx||0), p0[1]+(a.dy||0)];
+      s+=`<circle cx="${r1(p[0])}" cy="${r1(p[1])}" r="${rr}" fill="${col.palla}" stroke="${col.inchiostro}" stroke-width="1.5"/><path d="M${r1(p[0]-rr+2)} ${r1(p[1]-2)}q${rr-2} 5 ${2*rr-4} 0" fill="none" stroke="${col.inchiostro}" stroke-width="1" opacity=".6"/>`;
     } else if(a.tipo==='tappetino'){
       s+=`<rect x="${a.x||18}" y="${J._g-2}" width="${a.w||164}" height="5" rx="2.5" fill="${col.tappetino}"/>`;
     } else if(a.tipo==='muro'){
@@ -247,6 +249,9 @@ function vbCorpo(anim){
   for(const a of (anim.attrezzi||[])){
     if(a.tipo==='muro'||a.tipo==='cono'||a.tipo==='gradino'){ add(a.x,g-20); add(a.x+(a.w||8),g); }
     if(a.tipo==='elastico'){ for(const v of [a.da,a.a]) if(Array.isArray(v)) add(v[0],v[1]); }
+    if(a.tipo==='palla' && list.some(f=>f && f.palla)){
+      for(const f of list){ const b=Object.assign({},a,f.palla||{}); if(b.nascosta) continue; const q=pallaXY(b, jointsCorpo(anim,posaDi(f))); add(q[0]-10,q[1]-10); add(q[0]+10,q[1]+10); }
+    }
   }
   add(x0, GROUND+4); g=GROUND;
   const pad=16;
@@ -256,6 +261,27 @@ function vbCorpo(anim){
   else { const nh=w/VB_ASPECT; Y0-= (nh-h)*0.75; h=nh; }
   return [r1(X0), r1(Y0), r1(w), r1(h)];
 }
+// palla che cambia posizione da un fotogramma all'altro (campo "palla" del fotogramma)
+function pallaXY(a, J){
+  const v=a.su||a.pos||'mani';
+  const p = Array.isArray(v) ? v : (v==='mani' ? [ (J.haN[0]+J.haF[0])/2, (J.haN[1]+J.haF[1])/2 ] : (J[v]||[0,0]));
+  return [p[0]+(a.dx||0), p[1]+(a.dy||0)];
+}
+function attrezziFrame(anim, state){
+  const frames=anim.fotogrammi||[]; const att=anim.attrezzi||[];
+  if(!frames.some(f=>f && f.palla)) return att;
+  return att.map(a=>{
+    if(a.tipo!=='palla') return a;
+    const da = Object.assign({}, a, (frames[state.j]||{}).palla||{});
+    const ab = Object.assign({}, a, (frames[state.i]||{}).palla||{});
+    const Ja = jointsCorpo(anim, posaDi(frames[state.j])), Jb = jointsCorpo(anim, posaDi(frames[state.i]));
+    const A=pallaXY(da,Ja), B=pallaXY(ab,Jb);
+    if(!state.move) return Object.assign({}, ab, {_xy:B});
+    const u=ease(state.u); const sopra = da.nascosta&&ab.nascosta;
+    const hide = (da.nascosta && u<0.5) || (ab.nascosta && u>=0.5) || sopra;
+    return Object.assign({}, ab, {nascosta:hide, _xy:[A[0]+(B[0]-A[0])*u, A[1]+(B[1]-A[1])*u]});
+  });
+}
 function svgCorpo(anim, state, opt){
   const col = opt.col || colori();
   const frames = anim.fotogrammi||[];
@@ -264,7 +290,7 @@ function svgCorpo(anim, state, opt){
   if(state.move){ const a=posaDi(frames[state.j]), b=posaDi(frames[state.i]); P = lerpPose(a,b,ease(state.u)); }
   else P = posaDi(frames[state.i]);
   const J = jointsCorpo(anim, P);
-  const att = (anim.attrezzi||[]);
+  const att = attrezziFrame(anim, state);
   const ev = anim.evidenzia||[];
   let ghost='';
   if(opt.fantasma!==false && frames.length>1 && !opt.mini && !opt.noGhost && vista!=='fronte'){
