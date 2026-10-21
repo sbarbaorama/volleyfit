@@ -1,7 +1,7 @@
 /* VolleyFit – interfaccia */
 (function(){
 'use strict';
-const VERSIONE = '1.3.0';
+const VERSIONE = '1.3.1';
 const $ = (s,r) => (r||document).querySelector(s);
 const $$ = (s,r) => Array.from((r||document).querySelectorAll(s));
 const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -105,6 +105,8 @@ function ordineAmbito(e){
 }
 
 /* ------------------------------------------------------------------ filtri */
+// la scelta di un muscolo mostra solo gli esercizi di preparazione fisica e di recupero
+const perCorpo = e => e.obiettivo==='Fisico' || e.obiettivo==='Recupero';
 function filtra(list, f, q, ignora){
   ignora=ignora||{};
   const toks = norm(q).split(/\s+/).filter(Boolean);
@@ -113,7 +115,7 @@ function filtra(list, f, q, ignora){
     const l=e.lavora||{};
     if(f.pk && !ignora.pk && !(e.pacchetti||[]).includes(f.pk)) return false;
     if(f.fond && !ignora.fond && !(e.ambito===f.fond || (l.fondamentali||[]).includes(f.fond))) return false;
-    if(f.musc && !ignora.musc){ const ms=l.muscoli||[]; const ok = ms.includes(f.musc) || ms.some(m=>VSE.MUSCOLO[m] && VSE.MUSCOLO[m].regione===f.musc); if(!ok) return false; }
+    if(f.musc && !ignora.musc){ if(!perCorpo(e)) return false; const ms=l.muscoli||[]; const ok = ms.includes(f.musc) || ms.some(m=>VSE.MUSCOLO[m] && VSE.MUSCOLO[m].regione===f.musc); if(!ok) return false; }
     if(f.obiettivo && !ignora.obiettivo && e.obiettivo!==f.obiettivo) return false;
     if(f.ambito && !ignora.ambito && e.ambito!==f.ambito) return false;
     if(f.diff && f.diff.length && !f.diff.includes(+e.difficolta)) return false;
@@ -169,7 +171,7 @@ function mappaCampo(tutti){
 function mappaCorpo(tutti){
   const sel = ui.f.musc ? [ui.f.musc] : [];
   const base = filtra(tutti, ui.f, ui.q, {musc:true});
-  const lista = VSE.MUSCOLI.filter(m=>!m.regione).map(m=>{ const n=base.filter(e=>((e.lavora||{}).muscoli||[]).some(x=>x===m.id || (VSE.MUSCOLO[x]&&VSE.MUSCOLO[x].regione===m.id))).length; return {m,n}; });
+  const lista = VSE.MUSCOLI.filter(m=>!m.regione).map(m=>{ const n=base.filter(e=>perCorpo(e) && ((e.lavora||{}).muscoli||[]).some(x=>x===m.id || (VSE.MUSCOLO[x]&&VSE.MUSCOLO[x].regione===m.id))).length; return {m,n}; });
   return `<div class="corpo-map">
       <figure>${VSE.sagoma('fronte', sel, [], {cliccabile:true, attrs:'role="group" aria-label="Sagoma vista davanti"'})}<figcaption>Davanti</figcaption></figure>
       <figure>${VSE.sagoma('dietro', sel, [], {cliccabile:true, attrs:'role="group" aria-label="Sagoma vista dietro"'})}<figcaption>Dietro</figcaption></figure>

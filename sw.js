@@ -1,6 +1,6 @@
 /* VolleyFit – funzionamento senza rete.
    Cambia VERSIONE a ogni pubblicazione: i dispositivi vedranno «È disponibile una nuova versione». */
-const VERSIONE = 'volleyfit-1.3.0';
+const VERSIONE = 'volleyfit-1.3.1';
 const FILE = [
   './', 'index.html', 'manifest.webmanifest',
   'js/pose.js', 'js/anim.js', 'js/dati.js', 'js/catalogo.js', 'js/store.js', 'js/sync.js', 'js/editor.js', 'js/app.js',
